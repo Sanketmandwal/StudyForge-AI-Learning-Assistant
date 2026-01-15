@@ -87,7 +87,6 @@ const AIActions = () => {
     try {
       const response = await aiService.generateQuiz(documentId)
       toast.success("Quiz generated successfully!")
-      navigate(`/quizzes`)
     } catch (error) {
       console.error('Quiz error:', error)
       toast.error(error.message || "Failed to generate quiz")
