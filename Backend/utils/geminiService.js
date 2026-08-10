@@ -2,10 +2,10 @@ import dotenv from 'dotenv'
 import { GoogleGenAI } from '@google/genai'
 dotenv.config()
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
+const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY })
 
-if (!process.env.GEMINI_API_KEY) {
-    console.error('GEMINI_API_KEY is not Set up in ENV')
+if (!process.env.GOOGLE_API_KEY) {
+    console.error('GOOGLE_API_KEY is not Set up in ENV')
     process.exit(1)
 }
 

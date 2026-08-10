@@ -17,8 +17,4 @@ documentRouter.get('/:id',getDocument)
 documentRouter.delete('/:id',deleteDocument)
 
 
-
-
-
-
 export default documentRouter

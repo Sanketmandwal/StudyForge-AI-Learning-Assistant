@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://studyforge-ai-teaching-assistant.onrender.com';
+export const BASE_URL = 'http://localhost:5000'; // Replace with your backend server URL
 
 
 export const API_PATHS = {

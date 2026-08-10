@@ -11,55 +11,59 @@ const documentSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    fileName :{
-        type :String,
-        required : true,
+    fileName: {
+        type: String,
+        required: true,
     },
-    filePath :{
-        type :String,
-        required : true,
+    cloudinaryPublicId: {
+        type: String,
+        required: true
     },
-    fileSize :{
-        type :Number,
-        required : true,
+    fileUrl: {
+        type: String,
+        required: true
     },
-    extractedText : {
-        type : String,
-        default:''
+    fileSize: {
+        type: Number,
+        required: true,
     },
-    chunks : [{
-        content:{
-            type :String ,
-            required:true,
+    extractedText: {
+        type: String,
+        default: ''
+    },
+    chunks: [{
+        content: {
+            type: String,
+            required: true,
         },
-        pageNumber : {
-            type : Number ,
-            default : 0
+        pageNumber: {
+            type: Number,
+            default: 0
         },
-        chunkIndex : {
-            type : Number ,
-            required : true
+        chunkIndex: {
+            type: Number,
+            required: true
         }
     }],
-    uploadDate :  {
-        type : Date,
-        default : Date.now,
+    uploadDate: {
+        type: Date,
+        default: Date.now,
     },
-    lastAccessed : {
-        type : Date ,
-        default : Date.now,
+    lastAccessed: {
+        type: Date,
+        default: Date.now,
     },
-    status : {
-        type : String ,
-        enum : ['processing' , 'ready' , 'failed'],
-        default : 'processing'
+    status: {
+        type: String,
+        enum: ['processing', 'ready', 'failed'],
+        default: 'processing'
     }
-},{
-    timestamps:true
+}, {
+    timestamps: true
 })
 
-documentSchema.index({userId : 1 , uploadDate : -1})
+documentSchema.index({ userId: 1, uploadDate: -1 })
 
-const Document = mongoose.model('Document' , documentSchema)
+const Document = mongoose.model('Document', documentSchema)
 
 export default Document;

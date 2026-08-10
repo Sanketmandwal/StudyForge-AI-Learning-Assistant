@@ -11,12 +11,14 @@ import FlashcardRouter from './routes/flashcardRoutes.js'
 import aiRouter from './routes/aiRoutes.js'
 import quizRouter from './routes/quizRoutes.js'
 import progressRouter from './routes/progressRoute.js'
+import connectCloudinary from './config/cloudinary.js'
 
 const app = express()
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 
+connectCloudinary()
 connectDB();
 
 app.use(cors({

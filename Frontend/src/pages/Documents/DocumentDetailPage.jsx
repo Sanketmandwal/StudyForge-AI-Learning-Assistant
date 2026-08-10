@@ -47,16 +47,14 @@ const DocumentDetailPage = () => {
   }, [id, navigate])
 
   const getPdfUrl = () => {
-    if (!document || !document.data?.filePath) return null
+    if (!document || !document.data?.fileUrl) return null
 
-    const filePath = document.data.filePath
+    const fileUrl = document.data.fileUrl
 
-    if (filePath.startsWith('http://') || filePath.startsWith('https://')) {
-      return filePath
+    if (fileUrl.startsWith('http://') || fileUrl.startsWith('https://')) {
+      return fileUrl
     }
 
-    const baseUrl = 'https://studyforge-ai-teaching-assistant.onrender.com'
-    return `${baseUrl}/${filePath.startsWith('/') ? filePath.slice(1) : filePath}`
   }
 
   const formatFileSize = (bytes) => {
@@ -72,7 +70,7 @@ const DocumentDetailPage = () => {
   }
 
   const renderContent = () => {
-    if (!document || !document.data?.filePath) {
+    if (!document || !document.data?.fileUrl) {
       return (
         <div className="text-center py-12">
           <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">

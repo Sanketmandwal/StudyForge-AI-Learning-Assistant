@@ -1,20 +1,35 @@
-import fs from 'fs/promises'
-import { PDFParse } from 'pdf-parse'
+import { PDFParse } from "pdf-parse";
 
-export const extractTextFromPDF = async (filePath) =>{
+export const extractTextFromPDF = async (buffer) => {
+    const parser = new PDFParse({
+        data: buffer
+    });
+
     try {
-        const dataBuffer = await fs.readFile(filePath)
+        const result = await parser.getText();
 
-        const parser = new PDFParse(new Uint8Array(dataBuffer))
-        const data = await parser.getText()
+        const pages = result.pages
+            .map((page) => ({
+                pageNumber: page.num,
+                text: page.text.trim()
+            }))
+            .filter((page) => page.text.length > 0);
 
         return {
-            text : data.text,
-            numPages : data.numpages,
-            info: data.info, 
-        }
+            text: result.text,
+            pages,
+            numPages: result.total
+        };
     } catch (error) {
-        console.log("PDF Parsing error" , error)
-        throw new Error("Failed to extract from pdf")
+        console.error(
+            "PDF Parsing error:",
+            error
+        );
+
+        throw new Error(
+            "Failed to extract text from PDF"
+        );
+    } finally {
+        await parser.destroy();
     }
-}
+};
