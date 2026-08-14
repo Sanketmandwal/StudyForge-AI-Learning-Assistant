@@ -1,5 +1,5 @@
 export const BASE_URL = 'https://studyforge-ai-teaching-assistant.onrender.com/'; // Replace with your backend server URL
-
+// export const BASE_URL = 'http://localhost:5000'; // Replace with your backend server URL
 
 export const API_PATHS = {
     AUTH : {
@@ -15,6 +15,7 @@ export const API_PATHS = {
         GET_DOCUMENT_BY_ID : (id) => `/api/documents/${id}`,
         UPDATE_DOCUMENT : (id) => `/api/documents/${id}`,
         DELETE_DOCUMENT : (id) => `/api/documents/${id}`,
+        RETRY_DOCUMENT_PROCESSING : (id) => `/api/documents/${id}/retry`,
     },
     AI : {
         GENERATE_FLASHCARDS : '/api/ai/generate-flashcards',

@@ -233,3 +233,49 @@ export const deleteDocument = async (req, res, next) => {
         next(error);
     }
 };
+
+export const retryDocumentProcessing = async (req, res, next) => {
+    try {
+        const document = await Document.findOne({
+            _id: req.params.id,
+            userId: req.user._id
+        });
+
+        if (!document) {
+            return res.status(404).json({
+                success: false,
+                error: "Document not found"
+            });
+        }
+
+        if (document.status !== "failed") {
+            return res.status(400).json({
+                success: false,
+                error: "Only failed documents can be retried"
+            });
+        }
+
+        const job = await documentQueue.add(
+            "process-document",
+            {
+                documentId: document._id.toString()
+            }
+        );
+
+        document.status = "processing";
+        await document.save();
+
+        return res.status(200).json({
+            success: true,
+            data: {
+                documentId: document._id,
+                status: "processing",
+                jobId: job.id
+            },
+            message: "Document processing restarted"
+        });
+
+    } catch (error) {
+        next(error);
+    }
+};

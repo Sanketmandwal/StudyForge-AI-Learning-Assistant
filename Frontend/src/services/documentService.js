@@ -40,11 +40,21 @@ const getDocumentById = async (id) => {
     }
 };
 
+const retryDocumentProcessing = async (documentId) => {
+    try {
+        const response = await axiosInstance.post(API_PATHS.DOCUMENTS.RETRY_DOCUMENT_PROCESSING(documentId));
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || { message: "Failed to retry document processing" };
+    }
+};
+
 const documentService = {
     getDocuments,
     uploadDocument,
     deleteDocument,
-    getDocumentById
+    getDocumentById,
+    retryDocumentProcessing
 };
 
 export default documentService
